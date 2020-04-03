@@ -1,23 +1,23 @@
-'use strict';
+"use strict";
 
-const express = require('express');
-const employeeRoutes = require('./routes/employee');
+const express = require("express");
 const app = express();
-const port = parseInt(process.env.PORT || '3000');
+const employeeRoutes = require("./routes/employee");
+const port = parseInt(process.env.PORT || "3000");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/employees', employeeRoutes);
+app.use("/api/employees", employeeRoutes);
 
 // Fail over route
-app.use(function(req, res) {
-    res.status(404).send('Not found');
+app.use(function (req, res) {
+  res.status(404).send("Not found");
 });
 
 // listen for requests
-app.listen(port, function() {
-    console.log(`Server is listening on port ${port}`);
+app.listen(port, function () {
+  console.log(`Server is listening on port ${port}`);
 });
 
 module.exports = app;

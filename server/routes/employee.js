@@ -62,4 +62,4 @@ router.put("/:id", function (req, res) {
   }
 });
 
-modules.export = router;
+module.exports = router;
