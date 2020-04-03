@@ -1,1 +1,8 @@
-./_MACOSX
+# SERVER
+server/node_modules
+
+# CLIENT
+
+
+# GLOBAL
+__MACOSX
