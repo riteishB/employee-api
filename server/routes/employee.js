@@ -29,8 +29,13 @@ router.post("", async function (req, res) {
     const validity = true;
     if (validity) {
       // get a fav quote and a fav joke
-      req.body.favoriteQuote = await externalService.getSwansonQuote();
-      req.body.favoriteJoke = await externalService.getDadJokes();
+      const externalData = await Promise.all([
+        externalService.getSwansonQuote(),
+        externalService.getDadJokes(),
+      ]);
+      console.log(externalData);
+      // req.body.favoriteQuote = await externalService.getSwansonQuote();
+      // req.body.favoriteJoke = await externalService.getDadJokes();
 
       // store in db
       db.writeToDatabase(req.body);

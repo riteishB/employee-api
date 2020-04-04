@@ -1,5 +1,5 @@
-import axios from "axios";
-import { error } from "./logger";
+const axios = require("axios");
+const logger = require("./logger");
 
 const request = async (url) => {
   try {
@@ -12,7 +12,7 @@ const request = async (url) => {
     const data = response.data;
     return data;
   } catch (err) {
-    error(error);
+    logger.error(error);
     throw err;
   }
 };

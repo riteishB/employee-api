@@ -1,4 +1,4 @@
-const axios = require("axios");
+const request = require("../helpers/axios-helper");
 const getSwansonQuote = async () => {
   const url = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
   const response = await request(url);
