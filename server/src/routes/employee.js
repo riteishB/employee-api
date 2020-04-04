@@ -56,14 +56,31 @@ router.put("/:id", function (req, res) {
     if (validity) {
       const id = req.params.id;
       // store in db
-      db.updateInDatabase(id, req.body);
-      return res.sendStatus(200);
+      if (db.updateInDatabase(id, req.body)) {
+        res.sendStatus(204);
+      } else {
+        res.sendStatus(404);
+      }
     } else {
       res.sendStatus(400);
     }
   } catch (err) {
     logger.error(err);
     res.sendStatus(500);
+  }
+});
+
+/* DELETE an employee information by id */
+router.delete("/:id", function (req, res) {
+  try {
+    const id = req.params.id;
+    if (db.deleteFromDatabase(id)) {
+      res.sendStatus(204);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    logger.error(err);
   }
 });
 
