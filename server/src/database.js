@@ -34,23 +34,41 @@ class DATABASE {
     return this.DATABASE;
   }
 
+  getFromDatabaseWithKey(key, value) {
+    return this.DATABASE.find((entry) => {
+      return entry[key] === value;
+    });
+  }
+
   updateInDatabase(id, data) {
     // get the data from db pretaining to this id
     let dataIndex = this.DATABASE.findIndex((entry) => {
       return entry._id === id;
     });
 
-    this.DATABASE[dataIndex] = {
-      ...data,
-      favoriteQuote: this.DATABASE[dataIndex].favoriteQuote,
-      favoriteJoke: this.DATABASE[dataIndex].favoriteJoke,
-    };
+    if (index > -1) {
+      this.DATABASE[dataIndex] = {
+        ...data,
+        favoriteQuote: this.DATABASE[dataIndex].favoriteQuote,
+        favoriteJoke: this.DATABASE[dataIndex].favoriteJoke,
+      };
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  getFromDatabaseWithKey(key, value) {
-    return this.DATABASE.find((entry) => {
-      return entry[key] === value;
+  deleteFromDatabase(id) {
+    const index = this.DATABASE.findIndex((entry) => {
+      return entry._id === id;
     });
+
+    if (index > -1) {
+      this.DATABASE.splice(index, 1);
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
