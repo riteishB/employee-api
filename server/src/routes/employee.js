@@ -1,11 +1,11 @@
 "use strict";
 const express = require("express");
 const router = express.Router();
-const DATABASE = require("../database");
-const db = new DATABASE();
+const db = require("../database");
 const uuid = require("uuid");
 const logger = require("../helpers/logger");
 const externalService = require("../services/external-service");
+const validator = require("../helpers/validator");
 
 /* GET employees listing. */
 router.get("", function (req, res) {
@@ -21,21 +21,20 @@ router.get("/:id", function (req, res) {
 /* POST employee information */
 router.post("", async function (req, res) {
   try {
-    // create a unique id based on timestamp
-    const id = uuid.v1();
-    req.body._id = id;
-
-    // validate the body data
-    const validity = true;
+    // validate the request data
+    const validity = validator(req.body);
     if (validity) {
+      // create a unique id based on timestamp
+      const id = uuid.v1();
+      req.body._id = id;
       // get a fav quote and a fav joke
       const externalData = await Promise.all([
         externalService.getSwansonQuote(),
         externalService.getDadJokes(),
       ]);
-      console.log(externalData);
-      // req.body.favoriteQuote = await externalService.getSwansonQuote();
-      // req.body.favoriteJoke = await externalService.getDadJokes();
+
+      req.body.favoriteQuote = externalData[0];
+      req.body.favoriteJoke = externalData[1];
 
       // store in db
       db.writeToDatabase(req.body);
@@ -52,9 +51,10 @@ router.post("", async function (req, res) {
 /* PUT employee information by id */
 router.put("/:id", function (req, res) {
   try {
-    const id = req.params.id;
-    const validity = true;
+    // validate the request data
+    const validity = validator(req.body);
     if (validity) {
+      const id = req.params.id;
       // store in db
       db.updateInDatabase(id, req.body);
       return res.sendStatus(200);

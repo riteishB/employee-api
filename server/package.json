@@ -4,13 +4,18 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "node app"
+    "start": "node app",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.19.2",
     "express": "~4.16.1",
     "global": "^4.4.0",
+    "jsonschema": "^1.2.6",
     "nodemon": "^2.0.2",
     "uuid": "^7.0.3"
+  },
+  "devDependencies": {
+    "jest": "^25.2.7"
   }
 }

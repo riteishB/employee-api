@@ -1,3 +1,20 @@
+const mockData = [
+  {
+    _id: "1",
+    firstName: "abc",
+    lastName: "xyz",
+    hireDate: new Date(),
+    role: "LACKEY",
+  },
+  {
+    _id: "2",
+    firstName: "John",
+    lastName: "Lennon",
+    hireDate: new Date(),
+    role: "CEO",
+  },
+];
+
 class DATABASE {
   constructor() {
     this.DATABASE = mockData;
@@ -29,23 +46,14 @@ class DATABASE {
       favoriteJoke: this.DATABASE[dataIndex].favoriteJoke,
     };
   }
+
+  getFromDatabaseWithKey(key, value) {
+    return this.DATABASE.find((entry) => {
+      return entry[key] === value;
+    });
+  }
 }
 
-module.exports = DATABASE;
+const DB = new DATABASE();
 
-const mockData = [
-  {
-    _id: "1",
-    firstName: "abc",
-    lastName: "xyz",
-    hireDate: new Date(),
-    role: "LACKEY",
-  },
-  {
-    _id: "2",
-    firstName: "John",
-    lastName: "Lennon",
-    hireDate: new Date(),
-    role: "CEO",
-  },
-];
+module.exports = DB;
