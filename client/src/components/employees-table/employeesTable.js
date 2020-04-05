@@ -56,12 +56,6 @@ function EmployeeTableComponent(props) {
     <div>
       {error && <Alert variant="danger">{error}</Alert>}
       <Table striped bordered hover responsive>
-        <col className="col-one"></col>
-        <col className="col-two"></col>
-        <col className="col-three"></col>
-        <col className="col-four"></col>
-        <col className="col-five"></col>
-        <col className="col-six"></col>
         <thead>
           <tr>
             <th>id</th>
