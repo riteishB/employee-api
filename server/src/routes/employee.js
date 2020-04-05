@@ -22,8 +22,8 @@ router.get("/:id", function (req, res) {
 router.post("", async function (req, res) {
   try {
     // validate the request data
-    const validity = validator(req.body);
-    if (validity) {
+    const validitation = validator(req.body);
+    if (validitation[0]) {
       // create a unique id based on timestamp
       const id = uuid.v1();
       req.body._id = id;
@@ -40,7 +40,7 @@ router.post("", async function (req, res) {
       db.writeToDatabase(req.body);
       return res.sendStatus(200);
     } else {
-      res.sendStatus(400);
+      res.status(400).send(validitation[1]);
     }
   } catch (err) {
     logger.error(err);
@@ -52,8 +52,8 @@ router.post("", async function (req, res) {
 router.put("/:id", function (req, res) {
   try {
     // validate the request data
-    const validity = validator(req.body);
-    if (validity) {
+    const validitation = validator(req.body);
+    if (validitation[0]) {
       const id = req.params.id;
       // store in db
       if (db.updateInDatabase(id, req.body)) {
@@ -62,7 +62,7 @@ router.put("/:id", function (req, res) {
         res.sendStatus(404);
       }
     } else {
-      res.sendStatus(400);
+      res.status(400).send(validitation[1]);
     }
   } catch (err) {
     logger.error(err);

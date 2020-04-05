@@ -1,19 +1,28 @@
-const mockData = [
-  {
-    _id: "1",
-    firstName: "abc",
-    lastName: "xyz",
-    hireDate: new Date(),
-    role: "LACKEY",
-  },
-  {
-    _id: "2",
-    firstName: "John",
-    lastName: "Lennon",
-    hireDate: new Date(),
-    role: "CEO",
-  },
-];
+const uuid = require("uuid");
+// const mockData = [
+//   {
+//     _id: uuid.v1(),
+//     firstName: "abc",
+//     lastName: "xyz",
+//     hireDate: new Date().toISOString().split("T")[0],
+//     role: "LACKEY",
+//   },
+//   {
+//     _id: uuid.v1(),
+//     firstName: "John",
+//     lastName: "Lennon",
+//     hireDate: new Date().toISOString().split("T")[0],
+//     role: "CEO",
+//   },
+// ];
+
+const mockData = Array(50).fill({
+  _id: uuid.v1(),
+  firstName: "abc",
+  lastName: "xyz",
+  hireDate: new Date().toISOString().split("T")[0],
+  role: "LACKEY",
+});
 
 class DATABASE {
   constructor() {
@@ -46,9 +55,10 @@ class DATABASE {
       return entry._id === id;
     });
 
-    if (index > -1) {
+    if (dataIndex > -1) {
       this.DATABASE[dataIndex] = {
         ...data,
+        _id: this.DATABASE[dataIndex]._id,
         favoriteQuote: this.DATABASE[dataIndex].favoriteQuote,
         favoriteJoke: this.DATABASE[dataIndex].favoriteJoke,
       };
