@@ -1,0 +1,27 @@
+.Action-row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.col-one,
+.col-two,
+.col-three {
+  width: 20%;
+}
+
+.col-four,
+.col-five,
+.col-six {
+  width: 10%;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  background: black;
+  color: white;
+}
+
+.table-responsive {
+  height: 80vh;
+}
